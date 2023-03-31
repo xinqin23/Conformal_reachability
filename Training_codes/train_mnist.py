@@ -46,8 +46,10 @@ def main():
     transform = transforms.ToTensor()
     
     
-    data = loadmat('Data')
+    # data = loadmat('Data')
     # data = hdf5storage.loadmat('DPL_Data_gym.mat')
+    data = loadmat('s2s_Data_trajectory_exact.mat')
+
 
     Xtrain = data['Input']
     Xtrain = torch.Tensor(np.transpose(Xtrain[:, :1999998]))
