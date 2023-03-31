@@ -35,20 +35,20 @@ from scipy.io import savemat
 from scipy.linalg import block_diag
 from torch.utils.data import TensorDataset, DataLoader
 from scipy.io import loadmat
-import hdf5storage
+# import hdf5storage
 
 
 def main():
 
     print(2020)
-    train_batch_size = 6
+    train_batch_size = 2
 
     transform = transforms.ToTensor()
     
     
-    # data = loadmat('Data')
+    data = loadmat('Data')
     # data = hdf5storage.loadmat('DPL_Data_gym.mat')
-    data = loadmat('s2s_Data_trajectory_exact.mat')
+    # data = loadmat('s2s_Data_trajectory_exact.mat')
 
 
     Xtrain = data['Input']
@@ -63,7 +63,7 @@ def main():
     
     trainset=TensorDataset(Xtrain, Ytrain)
     # trainset = torchvision.datasets.MNIST('/tmp', train=True, download=True, transform=transform)
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size= train_batch_size, shuffle=True, num_workers=6)
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size= train_batch_size, shuffle=True, num_workers=2)
     
     print('Train data loaded')
     # testset=TensorDataset(testX, textlabelX)
@@ -75,13 +75,13 @@ def main():
 
 
     net = nn.Sequential(
-        nn.Linear(6,20),
+        nn.Linear(2,20),
         nn.ReLU(),
         nn.Linear(20,20),
         nn.ReLU(),
         nn.Linear(20,20),
         nn.ReLU(),
-        nn.Linear(20,6)
+        nn.Linear(20,2)
     )
 
     # criterion = nn.CrossEntropyLoss()
