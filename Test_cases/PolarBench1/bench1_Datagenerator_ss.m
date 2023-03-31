@@ -30,6 +30,12 @@ for j = 1:num_traj
     
 end
 
+theInput=Input;
+theOutput=Output;
+maxmin='no normalization';
+
+end
+
 function y = cntr(net, x)
    
     len=length(net.weights)-1;
@@ -40,8 +46,3 @@ function y = cntr(net, x)
     
 end
 
-theInput=Input;
-theOutput=Output;
-maxmin='no normalization';
-
-end
