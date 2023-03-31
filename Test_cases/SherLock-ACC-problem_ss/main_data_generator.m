@@ -8,7 +8,7 @@ epsilon=[10;0.1;0;0.5;0.1;0];
 lb = (Center-epsilon);
 ub = (Center+epsilon);
 
-load('Control.mat')
+load('Controlquad.mat')
 nn.weights=controller_nn.weights;
 nn.biases =controller_nn.biases;
 normalization=0;
