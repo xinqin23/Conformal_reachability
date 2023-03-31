@@ -30,7 +30,7 @@ end
 nn_controller.weights{1}=weight_matrix;
 nn_controller.biases{1}=bias_matrix;
 f=cell(size(bias_matrix,1),1);
-f(:)={'sigmoid'};
+f(:)={'ReLU'};
 nn_controller.layers{1}=f;
 
 
@@ -52,7 +52,7 @@ for i = 1:(no_of_hidden_layers)
     nn_controller.weights{i+1}=weight_matrix;
     nn_controller.biases{i+1}=bias_matrix;
     f=cell(size(bias_matrix,1),1);
-    f(:)={'sigmoid'};
+    f(:)={'ReLU'};
     nn_controller.layers{i+1}=f;
     
 end
