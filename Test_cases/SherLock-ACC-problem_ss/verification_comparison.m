@@ -3,10 +3,10 @@ clc
 close all
 
 
-addpath(genpath('C:\Users\Navid\nnv'))
-addpath(genpath('C:\Program Files\Mosek'))
-addpath(genpath('C:\Users\Navid\Documents\MATLAB\Others\Files\CDC2023\Conf_TNN_Separate_ss_trajectory\src'))
-addpath(genpath('C:\Users\Navid\Documents\MATLAB\Others\Files\CDC2023\Conf_TNN_Separate_ss_trajectory\Test_cases\SherLock-ACC-problem_ss\Results'))
+addpath(genpath('----- NNV directory -----  \nnv'))
+addpath(genpath('---- MOSEK directory-----  \Mosek'))
+addpath(genpath('----Toolbox directory----  \src'))
+addpath(genpath('----Toolbox directory----  \Test_cases\SherLock-ACC-problem_ss\Results'))
 
 
 l0=[90;32;0;10;30;0];
@@ -28,7 +28,7 @@ parfor i=1:H
 end
 
 
-load('ACC_approx_090_trajectory_exact.mat')
+load('ACC_approx_099_trajectory_exact.mat')
 H= length(Star_sets);
 Lb_97 = zeros(6, H+1);
 Ub_97 = zeros(6, H+1);
@@ -47,8 +47,9 @@ end
 clearvars -except Lb_95 Lb_97 Ub_95  Ub_97 
 
 
-addpath(genpath('C:\Users\Navid\Documents\MATLAB\Others\Files\CDC2023\Conf_TNN_Separate_ss_trajectory\Test_cases\SherLock-ACC-problem_ss\CORA_2022'))
-rmpath(genpath('C:\Users\Navid\nnv'))
+%%%%% Download CORA from its github directory and place it in the directory mentioned below 
+addpath(genpath('----Toolbox directory----\Test_cases\SherLock-ACC-problem_ss\CORA_2022'))
+rmpath(genpath(' ------NNV directory------\nnv'))
  
 
 R0 = interval([90; 32; 0; 10; 30; 0], [110; 32.2; 0; 11; 30.2; 0]);
