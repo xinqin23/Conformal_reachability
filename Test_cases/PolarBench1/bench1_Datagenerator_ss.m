@@ -9,7 +9,7 @@ inits2 = 0.5 + 0.1*rand(100,1);
 inits = [inits1, inits2]
  
 
-timestep = 0.1;
+timestep = 0.2;
 
 finalTime = 7;
 
