@@ -52,10 +52,12 @@ def main():
 
 
     Xtrain = data['Input']
-    Xtrain = torch.Tensor(np.transpose(Xtrain[:, :1999998]))
+    # Xtrain = torch.Tensor(np.transpose(Xtrain[:, :1999998]))
+    Xtrain = torch.Tensor(np.transpose(Xtrain[:, :1400000]))
+
     # Xtrain = Xtrain.cuda()
     Ytrain = data['Output']
-    Ytrain = torch.Tensor(np.transpose(Ytrain[:, :1999998]))
+    Ytrain = torch.Tensor(np.transpose(Ytrain[:, :1400000]))
     # Ytrain = Ytrain.cuda()
     print(Xtrain.shape)
     print(Ytrain.shape)
@@ -63,7 +65,7 @@ def main():
     
     trainset=TensorDataset(Xtrain, Ytrain)
     # trainset = torchvision.datasets.MNIST('/tmp', train=True, download=True, transform=transform)
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size= train_batch_size, shuffle=True, num_workers=2)
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size= train_batch_size, shuffle=True, num_workers=6)
     
     print('Train data loaded')
     # testset=TensorDataset(testX, textlabelX)
@@ -88,14 +90,14 @@ def main():
     # criterion = nn.MSELoss()
     optimizer = optim.Adam(net.parameters(), lr=1e-3)
     epsilon = 0.02
-    verbose = False
+    verbose = True
     epoch = 8
     print('Training started')
 
     # train_baseline(trainloader, net, optimizer, epoch, verbose)
     # train_madry(trainloader, net, epsilon, optimizer, epoch, verbose)
     # train_robust(trainloader, net, optimizer, epsilon, epoch, verbose, real_time=False, clip_grad=None)
-    train_lip_bound(trainloader, net, 8, optimizer, epoch, verbose)
+    train_lip_bound(trainloader, net, 3 , optimizer, epoch, verbose)  # lip for bench mark 1 is 1.0270
 
     # print('Evaluating accuracy on test set')
 
