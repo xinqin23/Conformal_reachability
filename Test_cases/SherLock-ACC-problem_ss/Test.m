@@ -44,7 +44,7 @@ end
 
 
 beta = 0.95;
-delta = 1- (1-beta)/(6*horizon);
+delta = 1- (1-nthroot(beta, horizon))/6
 Conf_d =zeros(6, horizon);
 tic
 for i=1:horizon
