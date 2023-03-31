@@ -1,45 +1,44 @@
-function [theInput, theOutput, maxmin] = ACC_nln_Datagenerator_ss(lb, ub, nn, timestep, normalization, num_traj , horizon) 
+function [theInput, theOutput, maxmin] = bench1_Datagenerator_ss(lb, ub, nn, timestep, normalization, num_traj , horizon) 
 
 
-inits1 = 0.8 + (0.9-0.8)*rand(100,1);
-inits2 = 0.5 + 0.1*rand(100,1);
-% [0.8, 0.9] to [0.5, 0.6]
-%  a + (b-a).*rand(100,1)
+n=2;
 
-inits = [inits1, inits2]
- 
 
-timestep = 0.2;
-
-finalTime = 7;
-
-numTrajectories = 100;
-
- 
-
-times = 0:timestep:finalTime;
-
-from = cell(numTrajectories,length(times)-1);
-
-next = cell(numTrajectories,length(times)-1);
-
- 
-
-for jj = 1:numTrajectories
-
-    from{jj,1} = inits(ii,:);
-
-%     enumerate over time steps
-
-% at each time step pick initial condition as last timesteps "from"       
-
-        [~,traj] = ode45(@vdp1,[0 timestep],from{});
-
-        
-
-% set this timesteps next to traj(end)      
-
+Nend=n;
+N0=Nend;
+Input = cell(1, horizon);
+Output = cell(1, horizon);
+for i=1:horizon
+    Input{i} = zeros(N0,num_traj);
+    Output{i} = zeros(Nend,num_traj);
 end
 
-end
+for j = 1:num_traj
     
+    initial=lb + rand(n,1).*(ub-lb);
+    Input{1}(:,j) = initial;
+    for i=1:horizon
+        init_a=[Input{i}(:,j)];
+        a_ego=cntr(nn, init_a);
+        [~,in_out] =  ode45(@(t,x)dynamicsBench1(t,x,a_ego),[0 timestep],Input{i}(:,j)');
+        in_out=in_out(end,:)';
+        Output{i}(:,j)= in_out;
+        if i<horizon
+            Input{i+1}(:,j) = in_out;
+        end
+    end
+    
+end
+
+function y = cntr(net, x)
+   
+    len=length(net.weights)-1;
+    for i=1:len
+        x=poslin(net.weights{i}*x+net.biases{i});
+    end
+    y=net.weights{end}*x+net.biases{end};
+    
+end
+
+
+end

@@ -2,20 +2,19 @@ clear all
 clc
 close all
 
-Center=[100;32.1;0;10.5;30.1;0]; 
-epsilon=[10;0.1;0;0.5;0.1;0];
 
-lb = (Center-epsilon);
-ub = (Center+epsilon);
+
+lb = [0.8; 0.5];
+ub = [0.9;0.6];
 
 load('ControlBench1.mat')
 nn.weights=controller_nn.weights;
 nn.biases =controller_nn.biases;
 normalization=0;
-timestep=0.1;
+timestep=0.2;
 num_traj= 40000 ;
-horizon = 50;
-[theInput, theOutput, maxmin] = ACC_nln_Datagenerator_ss(lb, ub, nn, timestep, normalization, num_traj, horizon);
+horizon = 30; % [0,7], 0.2
+[theInput, theOutput, maxmin] = bench1_Datagenerator_ss(lb, ub, nn, timestep, normalization, num_traj, horizon);
 
 Input_Data = theInput;
 Output_Data = theOutput;
