@@ -13,7 +13,7 @@ nn.biases =controller_nn.biases;
 normalization=0;
 timestep=0.2;
 num_traj= 40000 ;
-horizon = 30; % [0,7], 0.2
+horizon = 35; % [0,7], 0.2
 [theInput, theOutput, maxmin] = bench1_Datagenerator_ss(lb, ub, nn, timestep, normalization, num_traj, horizon);
 
 Input_Data = theInput;

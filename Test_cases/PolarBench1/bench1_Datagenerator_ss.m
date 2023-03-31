@@ -40,5 +40,8 @@ function y = cntr(net, x)
     
 end
 
+theInput=Input;
+theOutput=Output;
+maxmin='no normalization';
 
 end
