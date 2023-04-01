@@ -1,7 +1,7 @@
 function  Star_sets = ReLUplex_Reachability_ss(Center, epsilon, s2s_model, analysis_type, num_Cores, Horizon, Conf_d)
 
-len_model = length(s2s_model.layers);
-
+% len_model = length(s2s_model.layers);
+len_model = length(s2s_model.weights)-1;
 system_dim = size(Center,1);
 
 net = Trapezius_maker_ss(s2s_model, Horizon);

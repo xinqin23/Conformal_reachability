@@ -3,11 +3,13 @@ function  Net  = Trapezius_maker_ss(model, T)
 system_dim = size(model.biases{end},1);
 
 
-
-ell_m = length(model.layers);
+ell_m = length(model.weights)-1;
+% ell_m = length(model.layers);
 weights_m = model.weights;
 biases_m  = model.biases;
-layers_m  = model.layers;
+% layers_m  = model.layers;
+load('ControlBench1.mat')
+layers_m = controller_nn.layers;
 
 for k = 1:T
     index = (k-1)*(ell_m);

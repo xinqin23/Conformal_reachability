@@ -5,11 +5,15 @@ close all
 addpath(genpath('----- NNV directory -----  \nnv'))
 addpath(genpath('---- MOSEK directory-----  \Mosek'))
 addpath(genpath('----Toolbox directory----  \src'))
+addpath('src/TNN')
+addpath('src/Reachability')
+addpath('src/conf_bound')
 
 
 
-load('s2s_Model.mat')
-s2s_model = Net;
+
+load('s2s_Model_1epoch.mat')
+s2s_model = net;
 %%%%% be careful about the number of cells per parameter. It should be
 %%%%% consistant with the STL specification you will introduce later,
 
@@ -17,35 +21,34 @@ s2s_model = Net;
 % analysis_type='exact-star';
 analysis_type='approx-star';
 
-the_time = 46;
 
-Center=[100;32.1;0;10.5;30.1;0];  %%% This is the center of the set of initial states $\mathcal{X}_0$. 
-epsilon=[10;0.1;0;0.5;0.1;0];     %%% This is infinite norm radious of the set of initial states.
-num_Core=6;
+Center= [0.85;0.55];  %%% This is the center of the set of initial states $\mathcal{X}_0$. 
+epsilon=[0.05; 0.05];     %%% This is infinite norm radious of the set of initial states.
+num_Core=1;
 
 load('s2s_Data_trajectory_exact.mat')
 
 
 %%%%%%%%%%%%%%%%%
 
-spmd
-  gpuDevice( 1 + mod( labindex - 1, gpuDeviceCount ) )
-end
+% spmd
+%   gpuDevice( 1 + mod( labindex - 1, gpuDeviceCount ) )
+% end
 
-horizon = the_time + 3;
+horizon = 35; 
 
-for i=1:horizon
-    Input_Data{i} = gpuArray(Input_Data{i});
-    Output_Data{i} = gpuArray(Output_Data{i});
-end
+% for i=1:horizon
+%     Input_Data{i} = gpuArray(Input_Data{i});
+%     Output_Data{i} = gpuArray(Output_Data{i});
+% end
 
 
 %%%%%%%%%%%%%%%%
 
 
 beta = 0.95;
-delta = 1- (1-nthroot(beta, horizon))/6
-Conf_d =zeros(6, horizon);
+delta = 1- (1-nthroot(beta, horizon))/2
+Conf_d =zeros(2, horizon);
 tic
 for i=1:horizon
     Conf_d(:,i) = Conf_apply(Input_Data{i}, Output_Data{i}, s2s_model, delta);

@@ -6,7 +6,6 @@ system_dim = size(model.biases{end},1);
 R = zeros(system_dim, len);
 residual = abs(NN(model, Input_Data_pre) - Output_Data_pre);
 
-
 for j=1:system_dim
     R(j,:) = sort(residual(j,:));
 end

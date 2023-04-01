@@ -131,16 +131,21 @@ def train_lip_bound(loader, model, lam, opt, epoch, verbose):
             losses.update(ce.item(), X.size(0))
             errors.update(err, X.size(0))
 
+            if verbose and i % verbose == 0:
+                print('Epoch: [{0}][{1}/{2}]\t'
+                      'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
+                      'Data {data_time.val:.3f} ({data_time.avg:.3f})\t'
+                      'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+                      'Error {errors.val:.3f} ({errors.avg:.3f})'.format(
+                    t, i, len(loader), batch_time=batch_time,
+                    data_time=data_time, loss=losses, errors=errors))
+
+            # if i == 2000:
+            #     break
+
         print('epoch: ',t,'CrossEntropyLoss: ',ce.item())
 
-        if verbose and i % verbose == 0:
-            print('Epoch: [{0}][{1}/{2}]\t'
-              'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-              'Data {data_time.val:.3f} ({data_time.avg:.3f})\t'
-              'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-              'Error {errors.val:.3f} ({errors.avg:.3f})'.format(
-               epoch, i, len(loader), batch_time=batch_time,
-               data_time=data_time, loss=losses, errors=errors))
+
 
 def train_robust(loader, model, opt, epsilon, epoch, verbose, real_time=False, clip_grad=None, **kwargs):
     batch_time = AverageMeter()

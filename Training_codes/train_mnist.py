@@ -90,8 +90,8 @@ def main():
     # criterion = nn.MSELoss()
     optimizer = optim.Adam(net.parameters(), lr=1e-3)
     epsilon = 0.02
-    verbose = True
-    epoch = 8
+    verbose = 1000
+    epoch = 3
     print('Training started')
 
     # train_baseline(trainloader, net, optimizer, epoch, verbose)
