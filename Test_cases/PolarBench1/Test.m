@@ -46,19 +46,23 @@ horizon = 35;
 %%%%%%%%%%%%%%%%
 
 
-beta = 0.95;
-delta = 1- (1-nthroot(beta, horizon))/2
-Conf_d =zeros(2, horizon);
-tic
-for i=1:horizon
-    Conf_d(:,i) = Conf_apply(Input_Data{i}, Output_Data{i}, s2s_model, delta);
-end
-Conformal_time = toc;
+% beta = 0.95;
 
-tic
-Star_sets = ReLUplex_Reachability_ss(Center, epsilon, s2s_model, analysis_type, num_Core, horizon, Conf_d);
-Reachability_time = toc;
+for beta= [0.9, 0.91, 0.92, 0.93, 0.94,0.95,0.96, 0.97, 0.98, 0.99]
+ 
+    delta = 1- (1-nthroot(beta, horizon))/2
+    Conf_d =zeros(2, horizon);
+    tic
+    for i=1:horizon
+        Conf_d(:,i) = Conf_apply(Input_Data{i}, Output_Data{i}, s2s_model, delta);
+    end
+    Conformal_time = toc;
 
-% cd Results
-save('ACC_approx_095_trajectory_exact', 'Conf_d','Conformal_time', 'Star_sets', 'Reachability_time' )
-% cd ..
+    tic
+    Star_sets = ReLUplex_Reachability_ss(Center, epsilon, s2s_model, analysis_type, num_Core, horizon, Conf_d);
+    Reachability_time = toc;
+
+    % cd Results
+    save(sprintf('Bench1_approx_%.3f_trajectory_exact.mat',beta), 'Conf_d','Conformal_time', 'Star_sets', 'Reachability_time' )
+    % cd ..
+end 
