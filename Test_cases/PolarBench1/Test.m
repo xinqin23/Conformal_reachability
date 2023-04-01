@@ -59,6 +59,6 @@ tic
 Star_sets = ReLUplex_Reachability_ss(Center, epsilon, s2s_model, analysis_type, num_Core, horizon, Conf_d);
 Reachability_time = toc;
 
-cd Results
+% cd Results
 save('ACC_approx_095_trajectory_exact', 'Conf_d','Conformal_time', 'Star_sets', 'Reachability_time' )
-cd ..
+% cd ..
