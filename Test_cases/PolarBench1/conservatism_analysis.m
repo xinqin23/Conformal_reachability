@@ -67,48 +67,52 @@ end
 clearvars -except Lb  Ub  S times num_traj  num_plot beta_emp dim
 
 figure(3)
+t=0:0.2:7;
 
 for j=1:num_plot
     k =floor(rand*num_traj)+1;
-    plot(S{k}(1,:),S{k}(2,:), '-green')
+    plot3(t, S{k}(1,:),S{k}(2,:), '-green')
     hold on
 end
 
-t=0:0.2:7;
 % plot results over time
 
 hold on
-plot(Lb(1,:),Lb(2,:),'-black')
+plot3(t, Lb(1,:),Lb(2,:),'-black')
 hold on
-plot(Ub(1,:),Ub(2,:),'-red')
+plot3(t, Ub(1,:),Ub(2,:),'-red')
 hold on
 
-xlabel('x1');
-ylabel('x2')
+xlabel('t','FontSize',16);
+ylabel('x1','FontSize',16);
+zlabel('x2','FontSize',16);
+
+
 % plotOverTime(R,i,'FaceColor',colors1,'FaceAlpha',0.5 , 'EdgeColor' , 'none');
+saveas(figure(3),sprintf('bound2dim.png'))
 
-
-
-% 
 t=0:0.2:7;
 % plot results over time
 for i=1:dim
     figure(i)
     hold on
-    plot(t,Lb(i,:),'-black')
+    plot(t,Lb(i,:),'black.')
     hold on
-    plot(t,Ub(i,:),'-red')
+    plot(t,Ub(i,:),'r.')
     hold on
 %     plotOverTime(R,i,'FaceColor',colors1,'FaceAlpha',0.5 , 'EdgeColor' , 'none');
     
     for j=1:num_plot
         k =floor(rand*num_traj)+1;
-        plot(t, S{k}(i,:), '-green')
+        plot(t, S{k}(i,:),'g.')
         hold on
     end
     
-    xlabel('t');
-    ylabel('x'+ int2str(i))
+    xlabel('t','FontSize',16);
+    ylabel(sprintf('x%d', i),'FontSize',16)
+    set(gca,'Xtick',0:0.5:7,'FontSize',16)
+    saveas(figure(i),sprintf('bound%d.png', i))
+
 end
 
  
