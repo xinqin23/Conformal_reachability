@@ -66,7 +66,7 @@ end
 
 clearvars -except Lb  Ub  S times num_traj  num_plot beta_emp dim
 
-figure(3)
+figure()
 
 for j=1:num_plot
     k =floor(rand*num_traj)+1;
@@ -82,12 +82,10 @@ plot(Lb(1,:),Lb(2,:),'-black')
 hold on
 plot(Ub(1,:),Ub(2,:),'-red')
 hold on
-
-xlabel('x1');
-ylabel('x2')
 % plotOverTime(R,i,'FaceColor',colors1,'FaceAlpha',0.5 , 'EdgeColor' , 'none');
 
 
+clf
 
 % 
 t=0:0.2:7;
@@ -103,12 +101,9 @@ for i=1:dim
     
     for j=1:num_plot
         k =floor(rand*num_traj)+1;
-        plot(t, S{k}(i,:), '-green')
+        plot(t, S{k}(i,:))
         hold on
     end
-    
-    xlabel('t');
-    ylabel('x'+ int2str(i))
 end
 
  
