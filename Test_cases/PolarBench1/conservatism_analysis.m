@@ -32,8 +32,8 @@ end
 
 load('ControlBench1.mat')
 
-num_traj = 30;
-num_plot = 30;
+num_traj = 100;
+num_plot = 100;
 
 
 
@@ -72,21 +72,30 @@ t=0:2:70;
 
 for j=1:num_plot
     k =floor(rand*num_traj)+1;
-    plot3(t, S{k}(1,:),S{k}(2,:), '-green')
+%     plot3(t, S{k}(1,:),S{k}(2,:), '-green')
+    plot( S{k}(1,:),S{k}(2,:), '-green')
+
     hold on
 end
 
 % plot results over time
 
 hold on
-plot3(t, Lb(1,:),Lb(2,:),'-black')
+% plot3(t, Lb(1,:),Lb(2,:),'-black')
+plot( Lb(1,:),Lb(2,:),'-black')
+
 hold on
-plot3(t, Ub(1,:),Ub(2,:),'-red')
+% plot3(t, Ub(1,:),Ub(2,:),'-red')
+plot( Ub(1,:),Ub(2,:),'-red')
+
 hold on
 
-xlabel('$t$','FontSize',16,'Interpreter','latex');
-ylabel('$x_1$','FontSize',16,'Interpreter','latex');
-zlabel('$x_2$','FontSize',16,'Interpreter','latex');
+% xlabel('$t$','FontSize',16,'Interpreter','latex');
+% ylabel('$x_1$','FontSize',16,'Interpreter','latex');
+% zlabel('$x_2$','FontSize',16,'Interpreter','latex');
+
+xlabel('$x_1$','FontSize',16,'Interpreter','latex');
+ylabel('$x_2$','FontSize',16,'Interpreter','latex');
 box on
 
 
